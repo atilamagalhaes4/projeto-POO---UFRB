@@ -70,5 +70,27 @@ public class empresa {
 		    gravarArq.printf(nome);
 			arq.close();
 		}
-		
+                
+		void salvardinheiro(float dinheiro) throws IOException{
+		    PrintWriter arq = new PrintWriter("verba.txt");
+		    PrintWriter gravarArq = new PrintWriter(arq);
+		    gravarArq.printf(""+dinheiro);
+			arq.close();
+		}
+		float dinheiro() throws IOException {//O slogan da empresa
+		    FileReader arq = new FileReader("verba.txt");
+		    BufferedReader lerArq = new BufferedReader(arq);
+		    String linha = lerArq.readLine();
+                   boolean tal= false;
+                    float capital = 0;
+		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
+		    	nome = linha;
+                        capital = Float.parseFloat(nome);
+		    	linha = lerArq.readLine();
+                        tal = true;
+                    }
+                    if(tal == false) capital = 1200;
+		    arq.close();
+		    return (float)capital;
+		}				
 }

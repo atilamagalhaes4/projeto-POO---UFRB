@@ -9,7 +9,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.security.cert.PKIXRevocationChecker;
+
 
 import javax.swing.JButton;
 
@@ -19,7 +19,7 @@ public class inicio extends JFrame implements ActionListener{
 	static String empresa;
 	static String proprietario;
 	static String slogan;
-	float capital = 24000;
+	static float capital;
     static boolean emprestimo = false;
 	
 	JLabel label9;//empresa
@@ -174,8 +174,8 @@ public class inicio extends JFrame implements ActionListener{
 		inicio classe = new inicio();
 		empresa  entidade = new empresa();
 		terceirizadas servico = new terceirizadas();
-		
-		
+                 
+		capital = entidade.dinheiro();
 		empresa = entidade.colocarnomenaempresa();
 		 slogan = entidade.slogan();
 		 proprietario = entidade.proprietario();
@@ -206,6 +206,7 @@ public class inicio extends JFrame implements ActionListener{
 		try {
 			entidade.armazenandonome(empresa);
 		capital-=250;
+                        entidade.salvardinheiro(capital);
                 label8.setText("Capital "+capital);
 		  label9.setText(empresa);
                 JOptionPane.showMessageDialog(null, "Vinhemos avisar que foi liberado uma "
@@ -227,6 +228,7 @@ public class inicio extends JFrame implements ActionListener{
 			try {
 				entidade.armazenandoproprietario(proprietario);
                                 capital =capital-250;
+                                entidade.salvardinheiro(capital);
                                 label8.setText("Capital " +capital);
                                 label10.setText(proprietario);
 
@@ -248,6 +250,7 @@ public class inicio extends JFrame implements ActionListener{
 				entidade.armazenandoslogan(slogan);
 				  label11.setText(slogan);
                                   capital = capital-250;
+                                  entidade.salvardinheiro(capital);
                                   label8.setText("Capital " +capital);
 			} catch (IOException e1) {
 			
