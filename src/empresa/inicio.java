@@ -9,13 +9,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 import javax.swing.JButton;
 
 public class inicio extends JFrame implements ActionListener{
 
-	int level = 1;
+	static int level = 1;
 	static String empresa;
 	static String proprietario;
 	static String slogan;
@@ -174,11 +176,12 @@ public class inicio extends JFrame implements ActionListener{
 		inicio classe = new inicio();
 		empresa  entidade = new empresa();
 		terceirizadas servico = new terceirizadas();
-                 
+                
+                level = entidade.carregarlv();
 		capital = entidade.dinheiro();
 		empresa = entidade.colocarnomenaempresa();
-		 slogan = entidade.slogan();
-		 proprietario = entidade.proprietario();
+		slogan = entidade.slogan();
+		proprietario = entidade.proprietario();
 		 
 		 
 		 Object dados = servico.empresas();
@@ -296,8 +299,14 @@ public class inicio extends JFrame implements ActionListener{
                         else{
                         boolean condicao = estrutura.lvl(level);
                         if(condicao == true)
-                            level = level+1;
-                        capital= capital-8920;
+                            try {
+                        capital= capital-8920;        
+                        entidade.salvardinheiro(capital);
+                        level = level+1;
+                        entidade.salvarlv(level);
+                            } catch (IOException ex) {
+                                JOptionPane.showMessageDialog(null, "O progrograma se manifestou de forma inesperada, recomenda-se reiniciar.", "Erro interno", 1);
+                            }
                         label6.setText("Level da empresa "+level);
                         label8.setText("Capital " +capital);
                         }

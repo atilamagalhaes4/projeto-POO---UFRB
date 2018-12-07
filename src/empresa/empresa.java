@@ -92,5 +92,25 @@ public class empresa {
                     if(tal == false) capital = 1200;
 		    arq.close();
 		    return (float)capital;
-		}				
+		}
+		void salvarlv(int level) throws IOException{
+		    PrintWriter arq = new PrintWriter("lv.txt");
+		    PrintWriter gravarArq = new PrintWriter(arq);
+		    gravarArq.printf(""+level);
+			arq.close();
+		}
+		int carregarlv() throws IOException {//O slogan da empresa
+		    FileReader arq = new FileReader("lv.txt");
+		    BufferedReader lerArq = new BufferedReader(arq);
+		    String linha = lerArq.readLine();
+                    int lv = 0;
+		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
+		    	nome = linha;
+                        lv = Integer.parseInt(nome);
+		    	linha = lerArq.readLine();
+                    }
+                    if(lv == 0)lv = 1;
+                    arq.close();
+		    return lv;
+		}
 }
