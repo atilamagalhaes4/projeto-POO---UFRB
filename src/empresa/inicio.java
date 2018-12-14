@@ -9,10 +9,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
 import javax.swing.JButton;
 
 public class inicio extends JFrame implements ActionListener{
@@ -23,6 +19,7 @@ public class inicio extends JFrame implements ActionListener{
 	static String slogan;
 	static float capital;
     static boolean emprestimo = false;
+	int linha;
 	
 	JLabel label9;//empresa
         JLabel label10;//proprietario
@@ -32,9 +29,6 @@ public class inicio extends JFrame implements ActionListener{
 	
 	
          
-         
-	
-	
 	Font fonte1 = new Font("Times Roman",Font.ITALIC,40 );
 	Font fonte2 = new Font("Times Roman",Font.ITALIC,20 );
 	Font fonte3 = new Font("Times Roman",Font.ITALIC,25 );
@@ -51,25 +45,34 @@ public class inicio extends JFrame implements ActionListener{
 	JButton bt6 = new JButton("Clique");
 	JButton bt7 = new JButton("Sair");
 
-	
-	public void tela(Object empresas) {
 
-		Object [][]	 dados = (Object[][]) empresas;
-		
-	    String [] colunas = {"Empresa", "Pagamento R$","Lv necessario", "Custo", "Possiveis acidentes", }; 
-	    
-        JTable tabela = new JTable(dados, colunas);
-        JScrollPane barraRolagem = new JScrollPane(tabela);
-        add(barraRolagem); 
-        barraRolagem.setBounds(10,300, 900, 350);
 
-		
-		// Nomes para os botoes
+        
+	public void tela() {
+            terceirizadas inicio = new terceirizadas();
+
+            
+        Object [][] dados = (Object[][]) inicio.empresas();        	
+        String [] colunas = {"Empresa", "Pagamento R$",
+            "Lv necessario", "Custo", "Possiveis acidentes"};
+        JTable tabela = new JTable(dados, colunas){
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                return false;
+                }
+       
+        };
+        
+        JScrollPane rolagem = new JScrollPane(tabela);
+        add(rolagem); 
+        rolagem.setBounds(10,300, 900, 350);
+
+    // Nomes para os botoes
 		JLabel label1 = new JLabel("Renomeará a sua empresa");
 		JLabel label2 = new JLabel("Alterará o Slogan");
 		JLabel label3 = new JLabel("Alterará o dono da empresa");
-		JLabel label4 = new JLabel("Ver opções de emprestimo");
-		JLabel label5 = new JLabel("Status do caminhão");	
+		JLabel label4 = new JLabel("Ver opções de emprestimo (em manutenção)");
+		JLabel label5 = new JLabel("Status do caminhão (em manutenção)");	
 		 label6 = new JLabel("Level da empresa "+level);
 		JLabel label7 = new JLabel("Subir level da empresa");
 		
@@ -162,12 +165,12 @@ public class inicio extends JFrame implements ActionListener{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
-	}
 	
+        }
 	
-
-	
-	
+ public boolean isCellEditable(int row, int column) {  
+        return false;  
+    }
 	
 	
 	public static void main(String[] args) throws IOException{
@@ -177,16 +180,14 @@ public class inicio extends JFrame implements ActionListener{
 		empresa  entidade = new empresa();
 		terceirizadas servico = new terceirizadas();
                 
+
                 level = entidade.carregarlv();
 		capital = entidade.dinheiro();
 		empresa = entidade.colocarnomenaempresa();
 		slogan = entidade.slogan();
 		proprietario = entidade.proprietario();
-		 
-		 
-		 Object dados = servico.empresas();
-		 
-		 classe.tela(dados);
+		 		 
+		 classe.tela();
 
 		
 		
@@ -194,6 +195,7 @@ public class inicio extends JFrame implements ActionListener{
 	
 	
 
+        @Override
 	public void actionPerformed(ActionEvent e) {// funcoes do botao
 		
 		empresa  entidade = new empresa();
@@ -316,7 +318,11 @@ public class inicio extends JFrame implements ActionListener{
 		if(e.getSource()== bt7) {//sair
 			System.exit(0);
 		}
-		
+	
+                	if(e.getSource()== avancar) {//sair
+			JOptionPane.showMessageDialog(null, "A linha eh "+linha, "Teste",1);
+		}
+	
 	}
 
 }

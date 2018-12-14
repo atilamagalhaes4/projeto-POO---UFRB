@@ -3,10 +3,10 @@ package empresa;
 
 public class terceirizadas {
 
-
+    
+    
 	Object empresas() {
 	
-        
 		Object [] [] dados={
 		{"Maos mecanicas LTDA",(float)992.81,"2",0.4*1030,0.2*1030},
 		{"Industria TECBA SA",(float)1232.91,"3",0.4*1232,0.2*1232},
@@ -50,9 +50,7 @@ public class terceirizadas {
 		{"Doces da Vovo e C&a",(float)842.00,"2",0.4*845,0.2*845},
 		
                 };
-		
-		
-		
+
 		return dados;
 	}
 }
