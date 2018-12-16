@@ -3,7 +3,7 @@ package empresa;
 
 public class terceirizadas {
 
-    
+  //  Jcheckbox  marcar = new Jcheckbox();
     
 	Object empresas() {
 	

@@ -10,6 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class inicio extends JFrame implements ActionListener{
 
@@ -51,29 +55,43 @@ public class inicio extends JFrame implements ActionListener{
 	public void tela() {
             terceirizadas inicio = new terceirizadas();
 
-            
+    //Linhas relacionados a tabela
         Object [][] dados = (Object[][]) inicio.empresas();        	
         String [] colunas = {"Empresa", "Pagamento R$",
             "Lv necessario", "Custo", "Possiveis acidentes"};
+        
+        JCheckBox  marcar = new JCheckBox();
+        
+
+        
         JTable tabela = new JTable(dados, colunas){
                 @Override
                 public boolean isCellEditable(int row, int column) {
                 return false;
                 }
-       
         };
         
+        tabela.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+            
+            if(!lsm.isSelectionEmpty()) 
+                
+                linha = tabela.getSelectedRow();//pega o indice da linha na tabela
+               });
+        
+        
         JScrollPane rolagem = new JScrollPane(tabela);
-        add(rolagem); 
+        add(rolagem);
         rolagem.setBounds(10,300, 900, 350);
 
+        
     // Nomes para os botoes
 		JLabel label1 = new JLabel("Renomeará a sua empresa");
 		JLabel label2 = new JLabel("Alterará o Slogan");
 		JLabel label3 = new JLabel("Alterará o dono da empresa");
 		JLabel label4 = new JLabel("Ver opções de emprestimo (em manutenção)");
 		JLabel label5 = new JLabel("Status do caminhão (em manutenção)");	
-		 label6 = new JLabel("Level da empresa "+level);
+		label6 = new JLabel("Level da empresa "+level);
 		JLabel label7 = new JLabel("Subir level da empresa");
 		
                 JLabel label12 = new JLabel("Pressione para sair do jogo");
@@ -83,7 +101,6 @@ public class inicio extends JFrame implements ActionListener{
                 label11 = new JLabel(slogan);
 		label8 = new JLabel("Capital "+capital);
 		
-		this.setExtendedState(MAXIMIZED_BOTH);
 		
 		//Coloca acoes nos botoes
 		avancar.addActionListener(this);
@@ -134,7 +151,7 @@ public class inicio extends JFrame implements ActionListener{
 		label11.setBounds(10, 50, 800, 80);
 		label11.setFont(fonte2);
 		
-		//Adiciona os botoes e textos dos mesmos
+		//Adiciona os botoes  dos mesmos
 		add(bt1);
 		add(bt2);
 		add(bt3);
@@ -143,7 +160,8 @@ public class inicio extends JFrame implements ActionListener{
 		add(bt6);
 		add(bt7);
 		add(avancar);
-		
+
+                //Adiciona os textos dos mesmos		
 		add(label1);
 		add(label2);
 		add(label3);		
@@ -160,7 +178,8 @@ public class inicio extends JFrame implements ActionListener{
 		
 		
 		//Definicoes da tela
-		setTitle("Programação voltado á logistica - UFRB");
+		setExtendedState(MAXIMIZED_BOTH);
+                setTitle("Programação voltado á logistica - UFRB");
 		setSize(1100, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -168,14 +187,10 @@ public class inicio extends JFrame implements ActionListener{
 	
         }
 	
- public boolean isCellEditable(int row, int column) {  
-        return false;  
-    }
-	
 	
 	public static void main(String[] args) throws IOException{
 
-		
+
 		inicio classe = new inicio();
 		empresa  entidade = new empresa();
 		terceirizadas servico = new terceirizadas();
@@ -277,8 +292,15 @@ public class inicio extends JFrame implements ActionListener{
 					+ "R$ : 5 mil reais.\nDeseja pegar agora ?", "Nosso banco", 1);
 
 			if (i == 0) {
+
+                            try {
+                                entidade.salvardinheiro(capital);
 			emprestimo = true;
 			capital +=5000;
+                        label8.setText("Capital " +capital);
+                            } catch (IOException ex) {    
+                          JOptionPane.showMessageDialog(null, "Ocorreu um erro interno, por favor saia do jogo e entre novamente","Programador", 1);
+			}
 			}
 			else 
 			emprestimo = false;
