@@ -215,6 +215,7 @@ public class inicio extends JFrame implements ActionListener{
 		
 		empresa  entidade = new empresa();
 		upgrade estrutura = new upgrade();
+
 		
 		
 		if(e.getSource()== bt1) {//botao pra mudar o nome da empresa
@@ -341,8 +342,21 @@ public class inicio extends JFrame implements ActionListener{
 			System.exit(0);
 		}
 	
-                	if(e.getSource()== avancar) {//sair
-			JOptionPane.showMessageDialog(null, "A linha eh "+linha, "Teste",1);
+                	if(e.getSource()== avancar) {//avançar
+                terceirizadas terceirizadas = new terceirizadas();
+                
+            Object [][] dados =(Object[][]) terceirizadas.empresas();
+                
+           String nome = (String) dados [linha][0];
+            int pagamento = (int) dados [linha][1];
+            int lv = (int)dados [linha][2];            
+            int custo = (int) dados [linha][3];         
+            int acidente = (int) dados [linha][4];
+          
+            
+            JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
+                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Contrado", 1);
+                     
 		}
 	
 	}
