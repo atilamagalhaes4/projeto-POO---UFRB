@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import java.util.Random;
 
 public class inicio extends JFrame implements ActionListener{
 
@@ -58,7 +58,7 @@ public class inicio extends JFrame implements ActionListener{
     //Linhas relacionados a tabela
         Object [][] dados = (Object[][]) inicio.empresas();        	
         String [] colunas = {"Empresa", "Pagamento R$",
-            "Lv necessario", "Custo", "Possiveis acidentes"};
+            "Lv necessario", "Custo", "Possiveis taxas"};
         
         JCheckBox  marcar = new JCheckBox();
         
@@ -99,7 +99,7 @@ public class inicio extends JFrame implements ActionListener{
                 label9 = new JLabel(empresa);
                 label10 = new JLabel(proprietario);
                 label11 = new JLabel(slogan);
-		label8 = new JLabel("Capital "+capital);
+		label8 = new JLabel("Capital R$ "+capital);
 		
 		
 		//Coloca acoes nos botoes
@@ -144,7 +144,6 @@ public class inicio extends JFrame implements ActionListener{
 		
 		
 		// Texto sobre empresa slogan e proprietario respectivamente
-		
 		label9.setBounds(10, 10, 800, 80);
 		label9.setFont(fonte1);
 		label10.setBounds(10, 80, 800, 80);
@@ -228,7 +227,7 @@ public class inicio extends JFrame implements ActionListener{
 			entidade.armazenandonome(empresa);
 		capital-=250;
                         entidade.salvardinheiro(capital);
-                label8.setText("Capital "+capital);
+                label8.setText("Capital R$ "+capital);
 		  label9.setText(empresa);
                 JOptionPane.showMessageDialog(null, "Vinhemos avisar que foi liberado uma "
 				+ "verba para o Setor Contabil de R$ 250 reais\n restando assim " +capital +" no caixa da empresa.", "Setor de RH", 1);
@@ -250,7 +249,7 @@ public class inicio extends JFrame implements ActionListener{
 				entidade.armazenandoproprietario(proprietario);
                                 capital =capital-250;
                                 entidade.salvardinheiro(capital);
-                                label8.setText("Capital " +capital);
+                                label8.setText("Capital R$ " +capital);
                                 label10.setText(proprietario);
 
 			} catch (IOException e1) {
@@ -272,7 +271,7 @@ public class inicio extends JFrame implements ActionListener{
 				  label11.setText(slogan);
                                   capital = capital-250;
                                   entidade.salvardinheiro(capital);
-                                  label8.setText("Capital " +capital);
+                                  label8.setText("Capital R$ " +capital);
 			} catch (IOException e1) {
 			
 				JOptionPane.showMessageDialog(null, "Nao foi possivel fazer a operacao\n chame o programador.", "Error de programacao", 0);
@@ -298,7 +297,7 @@ public class inicio extends JFrame implements ActionListener{
                                 entidade.salvardinheiro(capital);
 			emprestimo = true;
 			capital +=5000;
-                        label8.setText("Capital " +capital);
+                        label8.setText("Capital R$ " +capital);
                             } catch (IOException ex) {    
                           JOptionPane.showMessageDialog(null, "Ocorreu um erro interno, por favor saia do jogo e entre novamente","Programador", 1);
 			}
@@ -333,7 +332,7 @@ public class inicio extends JFrame implements ActionListener{
                                 JOptionPane.showMessageDialog(null, "O progrograma se manifestou de forma inesperada, recomenda-se reiniciar.", "Erro interno", 1);
                             }
                         label6.setText("Level da empresa "+level);
-                        label8.setText("Capital " +capital);
+                        label8.setText("Capital R$ " +capital);
                         }
 			
 			
@@ -352,11 +351,52 @@ public class inicio extends JFrame implements ActionListener{
             int lv = (int)dados [linha][2];            
             int custo = (int) dados [linha][3];         
             int acidente = (int) dados [linha][4];
-          
             
-            JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
-                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Contrado", 1);
+             Random gerador = new Random();
+            
+            int teste = JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
+                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Setor contabil", 1);
                      
+            if(teste == 0) {
+                
+                if(level<lv){
+                   JOptionPane.showMessageDialog(null, "Não temos como atender a "+nome
+                           + ", temos que melhorar um pouco mais a nossa estrutura.","Setor contabil",1);
+                }
+                
+                else{
+                    
+            float saldo = pagamento;
+            int a = gerador.nextInt();
+            
+            saldo =saldo-custo;// Já foi descontado o custo da viagem
+            
+            while(a<0)   a = gerador.nextInt();
+                
+                
+            if(a%2==0) // vai ter acidente
+            saldo=saldo-(float)acidente;
+
+            else 
+            acidente =0;
+
+               JOptionPane.showMessageDialog
+        (null, "Empresa :    "+nome 
+          +"\n\nPagamento    "+pagamento
+          +"\nCusto              "+custo
+          +"\nTaxas             " +acidente
+          +"\n\nTotal                "+saldo,"Setor Contabil",1);
+            
+             capital = capital+saldo;  
+            label8.setText("Capital R$ " +capital);
+                        
+                }
+                
+            }
+            
+
+            
+            
 		}
 	
 	}
