@@ -14,6 +14,14 @@ import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+
+
+
+
 
 public class inicio extends JFrame implements ActionListener{
 
@@ -22,21 +30,23 @@ public class inicio extends JFrame implements ActionListener{
 	static String proprietario;
 	static String slogan;
 	static float capital;
-    static boolean emprestimo = false;
+        static float divida;
+        static boolean emprestimo = false;
 	int linha;
-	
+    
+
+       
 	JLabel label9;//empresa
         JLabel label10;//proprietario
 	JLabel label11;//slogan
         JLabel label8;//capital
 	JLabel label6; //level
+        JLabel label12;
 	
-	
-         
-	Font fonte1 = new Font("Times Roman",Font.ITALIC,40 );
-	Font fonte2 = new Font("Times Roman",Font.ITALIC,20 );
-	Font fonte3 = new Font("Times Roman",Font.ITALIC,25 );
-	Font fonte4 = new Font("Times Roman",Font.ITALIC,15 );
+
+
+
+
 	
 
 	//declaracao dos botoes
@@ -54,7 +64,7 @@ public class inicio extends JFrame implements ActionListener{
         
 	public void tela() {
             terceirizadas inicio = new terceirizadas();
-
+		setLayout(null);
     //Linhas relacionados a tabela
         Object [][] dados = (Object[][]) inicio.empresas();        	
         String [] colunas = {"Empresa", "Pagamento R$",
@@ -82,21 +92,25 @@ public class inicio extends JFrame implements ActionListener{
         
         JScrollPane rolagem = new JScrollPane(tabela);
         add(rolagem);
-        rolagem.setBounds(10,300, 900, 350);
+        rolagem.setBounds(10,300,750, 300);
 
+        
+        
+        
         
     // Nomes para os botoes
 		JLabel label1 = new JLabel("Renomeará a sua empresa");
 		JLabel label2 = new JLabel("Alterará o Slogan");
 		JLabel label3 = new JLabel("Alterará o dono da empresa");
 		JLabel label4 = new JLabel("Ver opções de emprestimo (em manutenção)");
-		JLabel label5 = new JLabel("Status do caminhão (em manutenção)");	
+		JLabel label5 = new JLabel("Pagar divida");	
 		label6 = new JLabel("Level da empresa "+level);
 		JLabel label7 = new JLabel("Subir level da empresa");
 		
-                JLabel label12 = new JLabel("Pressione para sair do jogo");
+                 label12 = new JLabel("Divida com o banco R$ : "+divida);
 
                 label9 = new JLabel(empresa);
+
                 label10 = new JLabel(proprietario);
                 label11 = new JLabel(slogan);
 		label8 = new JLabel("Capital R$ "+capital);
@@ -114,43 +128,49 @@ public class inicio extends JFrame implements ActionListener{
 		
 		
 		
-		setLayout(null);
-		
+            
+            
 		//Localizacao dos botoes
-
-		bt1.setBounds(995, 330, 100, 30);
-		bt2.setBounds(995, 390, 100, 30);
-		bt3.setBounds(995, 360, 100, 30);
-		bt4.setBounds(995, 420, 100, 30);
-		bt5.setBounds(995, 450, 100, 30);
-		bt6.setBounds(995, 480,100, 30);
-		bt7.setBounds(995, 510, 100, 30);
-		avancar.setBounds(1100, 600, 200, 100);
+		bt1.setBounds(770, 300, 100, 30);
+		bt2.setBounds(770, 330, 100, 30);
+		bt3.setBounds(770, 360, 100, 30);
+		bt4.setBounds(770, 390, 100, 30);
+		bt5.setBounds(770, 420, 100, 30);
+		bt6.setBounds(770, 450,100, 30);
+		bt7.setBounds(10, 620, 100, 30);
+		avancar.setBounds(1068, 620, 100, 30);
 		
 		//Localizacao dos textos dos botoes
-		label1.setBounds(1110, 330, 260, 30);
-		label2.setBounds(1110, 360, 260, 30);
-		label3.setBounds(1110, 390, 260, 30);
-		label4.setBounds(1110, 420, 260, 30);
-		label5.setBounds(1110, 450, 260, 30);
-		label7.setBounds(1110, 480, 260, 30);
+		label1.setBounds(885, 298, 260, 30);
+		label2.setBounds(885, 328, 260, 30);
+		label3.setBounds(885, 358, 260, 30);
+		label4.setBounds(885, 388, 260, 30);
+		label5.setBounds(885, 418, 260, 30);
+		label7.setBounds(885, 448, 260, 30);
 		label12.setBounds(1110, 510, 260, 30);
 		
-		
-		label6.setBounds(1000, 10, 260, 30); // level da empresa
-		label6.setFont(fonte4);
-		label8.setBounds(1000, 40, 260, 40); // capital
-		label8.setFont(fonte4);
-		
-		
-		// Texto sobre empresa slogan e proprietario respectivamente
+		//3 tipos de fonte
+            Font pequena = new Font("TimesRoman",Font.PLAIN, 14);
+            Font media = new Font("TimesRoman",Font.PLAIN, 18);
+            Font grande = new Font("TimesRoman",Font.PLAIN, 27);
+	
+                
+		label6.setBounds(900, 20, 260, 30); // level da empresa
+                label6.setFont(pequena);
+		label8.setBounds(900, 40, 260, 40); // capital
+                label8.setFont(pequena);
+		label12.setBounds(900, 60, 260, 50); // divida
+		label12.setFont(pequena);
+                
+		// Texto sobre empresa slogan e proprietario 
 		label9.setBounds(10, 10, 800, 80);
-		label9.setFont(fonte1);
-		label10.setBounds(10, 80, 800, 80);
+                label9.setFont(grande);
 		label11.setBounds(10, 50, 800, 80);
-		label11.setFont(fonte2);
+                label11.setFont(media);
+                label10.setBounds(10, 80, 800, 80);
+                label10.setFont(media);
 		
-		//Adiciona os botoes  dos mesmos
+		//Adiciona os botoes  a tela
 		add(bt1);
 		add(bt2);
 		add(bt3);
@@ -160,7 +180,8 @@ public class inicio extends JFrame implements ActionListener{
 		add(bt7);
 		add(avancar);
 
-                //Adiciona os textos dos mesmos		
+
+                //Adiciona os textos na	
 		add(label1);
 		add(label2);
 		add(label3);		
@@ -177,9 +198,8 @@ public class inicio extends JFrame implements ActionListener{
 		
 		
 		//Definicoes da tela
-		setExtendedState(MAXIMIZED_BOTH);
-                setTitle("Programação voltado á logistica - UFRB");
-		setSize(1100, 700);
+		setTitle("Programação voltado á logistica - UFRB");
+		setSize(1200, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -194,9 +214,9 @@ public class inicio extends JFrame implements ActionListener{
 		empresa  entidade = new empresa();
 		terceirizadas servico = new terceirizadas();
                 
-
+                divida = entidade.carregardivida();
                 level = entidade.carregarlv();
-		capital = entidade.dinheiro();
+		capital = entidade.carregardinheiro();
 		empresa = entidade.colocarnomenaempresa();
 		slogan = entidade.slogan();
 		proprietario = entidade.proprietario();
@@ -213,7 +233,7 @@ public class inicio extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {// funcoes do botao
 		
 		empresa  entidade = new empresa();
-		upgrade estrutura = new upgrade();
+
 
 		
 		
@@ -282,38 +302,63 @@ public class inicio extends JFrame implements ActionListener{
 			}
 		if(e.getSource()== bt4) { // botao do emprestimo
 			
-			
-			JOptionPane.showMessageDialog(null, "Contactei o banco", "Setor de Contabilidade", 1);
-			JOptionPane.showMessageDialog(null, "Fique de olho, eles cobrarão 5% do \nvalor que irão lhe oferecer"
-			+ " ao mês.","Setor de Contabilidade", 0);
-			JOptionPane.showMessageDialog(null, "Passarei o contato deles.", "Setor de Contabilidade", 1);			
-
 			int i = JOptionPane.showConfirmDialog(null, "Olá, estamos autorizados a lhe emprestar "
 					+ "R$ : 5 mil reais.\nDeseja pegar agora ?", "Nosso banco", 1);
 
-			if (i == 0) {
-
-                            try {
-                                entidade.salvardinheiro(capital);
-			emprestimo = true;
-			capital +=5000;
+                    if(i==0){
+                    try {
+                    capital +=5000;
+                        entidade.salvardinheiro(capital);
                         label8.setText("Capital R$ " +capital);
-                            } catch (IOException ex) {    
-                          JOptionPane.showMessageDialog(null, "Ocorreu um erro interno, por favor saia do jogo e entre novamente","Programador", 1);
-			}
-			}
-			else 
-			emprestimo = false;
+                    } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro com o capital, chame o programador.");
+                    
+                    }
 			
-			}
-		if(e.getSource()== bt5) { // Status do caminhão
+                        
+                    try {
+                    divida = divida +5000;
+                    entidade.salvardivida((int)divida);
+                    label12.setText("Divida com o banco R$ : "+divida);
+                    
+                    } catch (IOException ex) {
+                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    }
+                    else JOptionPane.showMessageDialog(null, "Voce que manda tecnico", "Setor Contabil", 1);
+                        }
+                
+		if(e.getSource()== bt5) { // Pagar divida
 		
-			estrutura.garagem();
-			
-			estrutura.viajando();
-			
+                    if(divida !=0){
+                int i = JOptionPane.showConfirmDialog(null, "Podemos transferir o dinheiro ?", "Setor Contabil", 1);
+		
+                if(i == 0){
+                capital= capital-divida;        
+                divida = 0;
+                
+                try {
+                        entidade.salvardinheiro(capital);
+                    } catch (IOException ex) {
+                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+
+                    try {
+                        entidade.salvardivida((int)divida);
+                    } catch (IOException ex) {
+                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    label12.setText("Divida com o banco R$ : "+divida);
+                    label8.setText("Capital R$ " +capital);
+                }
+                else JOptionPane.showMessageDialog(null, "Sempre podemos pagar depois chefe :P");
+                    }
+                
+                else JOptionPane.showMessageDialog(null, "Não devemos nada para ninguém, chefe.");
 		}
-		if(e.getSource()== bt6) {// subir lv da empresa
+                    if(e.getSource()== bt6) {// subir lv da empresa
 		
 			if (capital <9000) {
 				JOptionPane.showMessageDialog(null, "Chefe, não temos tanto dinheiro assim para melhorar a empresa,"
@@ -321,8 +366,7 @@ public class inicio extends JFrame implements ActionListener{
 			}
 			
                         else{
-                        boolean condicao = estrutura.lvl(level);
-                        if(condicao == true)
+
                             try {
                         capital= capital-8920;        
                         entidade.salvardinheiro(capital);
@@ -352,8 +396,10 @@ public class inicio extends JFrame implements ActionListener{
             int custo = (int) dados [linha][3];         
             int acidente = (int) dados [linha][4];
             
-             Random gerador = new Random();
-            
+            Random gerador = new Random();
+             
+             
+             
             int teste = JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
                     +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Setor contabil", 1);
                      
@@ -368,8 +414,8 @@ public class inicio extends JFrame implements ActionListener{
                     
             float saldo = pagamento;
             int a = gerador.nextInt();
-            
             saldo =saldo-custo;// Já foi descontado o custo da viagem
+            
             
             while(a<0)   a = gerador.nextInt();
                 
@@ -380,15 +426,19 @@ public class inicio extends JFrame implements ActionListener{
             else 
             acidente =0;
 
-               JOptionPane.showMessageDialog
-        (null, "Empresa :    "+nome 
-          +"\n\nPagamento    "+pagamento
-          +"\nCusto              "+custo
-          +"\nTaxas             " +acidente
-          +"\n\nTotal                "+saldo,"Setor Contabil",1);
-            
-             capital = capital+saldo;  
+                    try { // salvar o dinheiro no banco
+             capital = capital+saldo;
+             entidade.salvardinheiro(capital);
             label8.setText("Capital R$ " +capital);
+                    } catch (IOException ex) {
+                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                 
+
+               JOptionPane.showMessageDialog(null, "Empresa :    "+nome+"\n\nPagamento    "+pagamento
+          +"\nCusto              "+custo+"\nTaxas             " +acidente+"\n\nTotal                "+saldo,"Setor Contabil",1);
+            
+            
                         
                 }
                 
@@ -400,5 +450,7 @@ public class inicio extends JFrame implements ActionListener{
 		}
 	
 	}
+
+
 
 }

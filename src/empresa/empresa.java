@@ -77,7 +77,7 @@ public class empresa {
 		    gravarArq.printf(""+dinheiro);
 			arq.close();
 		}
-		float dinheiro() throws IOException {//O slogan da empresa
+		float carregardinheiro() throws IOException {//O slogan da empresa
 		    FileReader arq = new FileReader("verba.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);
 		    String linha = lerArq.readLine();
@@ -113,4 +113,26 @@ public class empresa {
                     arq.close();
 		    return lv;
 		}
+                
+                void salvardivida(int divida) throws IOException{
+		    PrintWriter arq = new PrintWriter("divida.txt");
+		    PrintWriter gravarArq = new PrintWriter(arq);
+		    gravarArq.printf(""+divida);
+			arq.close();
+		}
+		float carregardivida() throws IOException {//O slogan da empresa
+		    FileReader arq = new FileReader("divida.txt");
+		    BufferedReader lerArq = new BufferedReader(arq);
+		    String linha = lerArq.readLine();
+                    float divida = 0;
+		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
+		    	nome = linha;
+                        divida = Integer.parseInt(nome);
+		    	linha = lerArq.readLine();
+                    }
+                    arq.close();
+		    return divida;
+		}
+                
+                
 }
