@@ -1,11 +1,15 @@
 package empresa;
 
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -16,6 +20,9 @@ import javax.swing.event.ListSelectionEvent;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 
 
@@ -33,7 +40,7 @@ public class inicio extends JFrame implements ActionListener{
         static float divida;
         static boolean emprestimo = false;
 	int linha;
-    
+
 
        
 	JLabel label9;//empresa
@@ -42,7 +49,6 @@ public class inicio extends JFrame implements ActionListener{
         JLabel label8;//capital
 	JLabel label6; //level
         JLabel label12;
-	
 
 
 
@@ -59,12 +65,14 @@ public class inicio extends JFrame implements ActionListener{
 	JButton bt6 = new JButton("Clique");
 	JButton bt7 = new JButton("Sair");
 
-
+                
 
         
 	public void tela() {
             terceirizadas inicio = new terceirizadas();
 		setLayout(null);
+
+
     //Linhas relacionados a tabela
         Object [][] dados = (Object[][]) inicio.empresas();        	
         String [] colunas = {"Empresa", "Pagamento R$",
@@ -102,7 +110,7 @@ public class inicio extends JFrame implements ActionListener{
 		JLabel label1 = new JLabel("Renomeará a sua empresa");
 		JLabel label2 = new JLabel("Alterará o Slogan");
 		JLabel label3 = new JLabel("Alterará o dono da empresa");
-		JLabel label4 = new JLabel("Ver opções de emprestimo (em manutenção)");
+		JLabel label4 = new JLabel("Ver opções de emprestimo");
 		JLabel label5 = new JLabel("Pagar divida");	
 		label6 = new JLabel("Level da empresa "+level);
 		JLabel label7 = new JLabel("Subir level da empresa");
@@ -147,7 +155,7 @@ public class inicio extends JFrame implements ActionListener{
 		label4.setBounds(885, 388, 260, 30);
 		label5.setBounds(885, 418, 260, 30);
 		label7.setBounds(885, 448, 260, 30);
-		label12.setBounds(1110, 510, 260, 30);
+		
 		
 		//3 tipos de fonte
             Font pequena = new Font("TimesRoman",Font.PLAIN, 14);
@@ -193,12 +201,13 @@ public class inicio extends JFrame implements ActionListener{
 		add(label9);	
 		add(label10);	
 		add(label11);	
-		add(label12);	
-
-		
-		
+		add(label12);
+				
+                
 		//Definicoes da tela
-		setTitle("Programação voltado á logistica - UFRB");
+                Panel painel = new Panel();
+                add(painel);
+                setTitle("Programação voltado á logistica - UFRB");
 		setSize(1200, 700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
@@ -209,10 +218,11 @@ public class inicio extends JFrame implements ActionListener{
 	
 	public static void main(String[] args) throws IOException{
 
-
-		inicio classe = new inicio();
-		empresa  entidade = new empresa();
-		terceirizadas servico = new terceirizadas();
+            JFrame f = new JFrame();
+            background fundo = new background();
+            inicio classe = new inicio();
+            empresa  entidade = new empresa();
+            terceirizadas servico = new terceirizadas();
                 
                 divida = entidade.carregardivida();
                 level = entidade.carregarlv();
@@ -222,13 +232,12 @@ public class inicio extends JFrame implements ActionListener{
 		proprietario = entidade.proprietario();
 		 		 
 		 classe.tela();
-
-		
-		
-	}
-	
-	
-
+                  f.add(fundo);
+				
+        }
+        
+        
+        
         @Override
 	public void actionPerformed(ActionEvent e) {// funcoes do botao
 		
@@ -302,8 +311,8 @@ public class inicio extends JFrame implements ActionListener{
 			}
 		if(e.getSource()== bt4) { // botao do emprestimo
 			
-			int i = JOptionPane.showConfirmDialog(null, "Olá, estamos autorizados a lhe emprestar "
-					+ "R$ : 5 mil reais.\nDeseja pegar agora ?", "Nosso banco", 1);
+			int i = JOptionPane.showConfirmDialog(null, "Podemos lhe emprestar R$ : 5 mil reais."
+                                + "\nDeseja sacar agora ?", "Nosso banco", 1);
 
                     if(i==0){
                     try {
@@ -325,13 +334,14 @@ public class inicio extends JFrame implements ActionListener{
                         Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     }
-                    else JOptionPane.showMessageDialog(null, "Voce que manda tecnico", "Setor Contabil", 1);
+                    else JOptionPane.showMessageDialog(null, "Volteremos a trabalhar", "Setor Contabil", 1);
                         }
                 
 		if(e.getSource()== bt5) { // Pagar divida
 		
                     if(divida !=0){
-                int i = JOptionPane.showConfirmDialog(null, "Podemos transferir o dinheiro ?", "Setor Contabil", 1);
+                int i = JOptionPane.showConfirmDialog(null, "A nossa divida"
+                        + "esta avaliada em R$ "+divida+"Podemos transferir o dinheiro ?", "Setor Contabil", 1);
 		
                 if(i == 0){
                 capital= capital-divida;        
@@ -356,7 +366,7 @@ public class inicio extends JFrame implements ActionListener{
                 else JOptionPane.showMessageDialog(null, "Sempre podemos pagar depois chefe :P");
                     }
                 
-                else JOptionPane.showMessageDialog(null, "Não devemos nada para ninguém, chefe.");
+                else JOptionPane.showMessageDialog(null, "Não temos nenhuma divida fora do normal");
 		}
                     if(e.getSource()== bt6) {// subir lv da empresa
 		
@@ -395,22 +405,23 @@ public class inicio extends JFrame implements ActionListener{
             int lv = (int)dados [linha][2];            
             int custo = (int) dados [linha][3];         
             int acidente = (int) dados [linha][4];
-            
             Random gerador = new Random();
              
              
              
-            int teste = JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
-                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Setor contabil", 1);
-                     
-            if(teste == 0) {
+         
+            if(lv>level){
                 
-                if(level<lv){
                    JOptionPane.showMessageDialog(null, "Não temos como atender a "+nome
                            + ", temos que melhorar um pouco mais a nossa estrutura.","Setor contabil",1);
                 }
                 
                 else{
+            
+                    int i = JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
+                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Setor contabil", 1);
+                   
+                    if(i==0){
                     
             float saldo = pagamento;
             int a = gerador.nextInt();
@@ -438,19 +449,10 @@ public class inicio extends JFrame implements ActionListener{
                JOptionPane.showMessageDialog(null, "Empresa :    "+nome+"\n\nPagamento    "+pagamento
           +"\nCusto              "+custo+"\nTaxas             " +acidente+"\n\nTotal                "+saldo,"Setor Contabil",1);
             
-            
+
                         
-                }
-                
-            }
-            
-
-            
-            
-		}
-	
-	}
-
-
-
+}
+}                
+}           
+}	
 }
