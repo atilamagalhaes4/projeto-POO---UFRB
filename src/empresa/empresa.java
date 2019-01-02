@@ -31,46 +31,6 @@ public class empresa {
 		arq.close();
 	}
 
-		String proprietario() throws IOException{//Colocara o nome do proprietario
-		    FileReader arq = new FileReader("nome do proprietario.txt");
-		    BufferedReader lerArq = new BufferedReader(arq);
-		    String linha = lerArq.readLine();
-		    
-		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
-		    	nome = linha;
-		    	linha = lerArq.readLine();
-		    }
-			
-		    arq.close();
-			return nome;
-		}
-                
-    void armazenandoproprietario(String nome) throws IOException{
-    PrintWriter arq = new PrintWriter("nome do proprietario.txt");
-    PrintWriter gravarArq = new PrintWriter(arq);
-    gravarArq.printf(nome);
-	arq.close();
-}
-    
-		String slogan() throws IOException {//O slogan da empresa
-		    FileReader arq = new FileReader("slogan da empresa.txt");
-		    BufferedReader lerArq = new BufferedReader(arq);
-		    String linha = lerArq.readLine();
-			
-		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
-		    	nome = linha;
-		    	linha = lerArq.readLine();
-		    }
-		    arq.close();
-		    return nome;
-		}
-		void armazenandoslogan(String nome) throws IOException{
-		    PrintWriter arq = new PrintWriter("slogan da empresa.txt");
-		    PrintWriter gravarArq = new PrintWriter(arq);
-		    gravarArq.printf(nome);
-			arq.close();
-		}
-                
 		void salvardinheiro(float dinheiro) throws IOException{
 		    PrintWriter arq = new PrintWriter("verba.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
