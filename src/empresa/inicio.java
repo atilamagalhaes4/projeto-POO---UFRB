@@ -1,13 +1,13 @@
 package empresa;
 
 
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.Font;
-import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -34,16 +34,19 @@ public class inicio extends JFrame implements ActionListener{
         static float divida;
         static boolean emprestimo = false;
 	int linha;
+        static String passagem;
 
 
-       
+        JLabel label7; 
 	JLabel label9;//empresa
         JLabel label8;//capital
 	JLabel label6; //level
-        JLabel label12;
+        JLabel label2;
+        JLabel label10;
 
 JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
-
+ //          ImageIcon icon = new ImageIcon("carregando.gif");
+ 
 
 	
 
@@ -58,11 +61,9 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 
 
         
-	public void tela() {
+	public void tela() throws IOException {
         
-
             terceirizadas inicio = new terceirizadas();
-		setLayout(null);
 
 
     //Linhas relacionados a tabela
@@ -103,16 +104,16 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		JLabel label3 = new JLabel("Pedir emprestimo");
 		JLabel label4 = new JLabel("Pagar divida");
 		JLabel label5 = new JLabel("Subir level da empresa");	
-		label6 = new JLabel("Level da empresa "+level);
 		
-		
-                 label12 = new JLabel("Divida com o banco R$ : "+divida);
-
+                
+                label6 = new JLabel("Level da empresa "+level);
+		label2 = new JLabel("Divida com o banco R$ : "+divida);
                 label9 = new JLabel(empresa);
-
                 label8 = new JLabel("Capital R$ "+capital);
-		
-		
+		label7 = new JLabel("Tudo pronto :");
+		label10 = new JLabel(passagem);
+        
+        
 		//Coloca acoes nos botoes
 		avancar.addActionListener(this);
 		bt1.addActionListener(this);
@@ -138,45 +139,48 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		label3.setBounds(885, 350, 260, 30);
 		label4.setBounds(885, 400, 260, 30);
 		label5.setBounds(885, 450, 260, 30);
-		
-		
-		
+		label7.setBounds(985, 620, 150, 30);
+
 		//3 tipos de fonte
             Font pequena = new Font("TimesRoman",Font.PLAIN, 14);
-            Font media = new Font("TimesRoman",Font.PLAIN, 18);
-            Font grande = new Font("TimesRoman",Font.PLAIN, 27);
-	
+            Font grande = new Font("TimesRoman",Font.PLAIN, 37);
+            Font media = new Font("TimesRoman",Font.PLAIN, 20);	
                 
 		label6.setBounds(900, 20, 260, 30); // level da empresa
                 label6.setFont(pequena);
 		label8.setBounds(900, 40, 260, 40); // capital
                 label8.setFont(pequena);
-		label12.setBounds(900, 60, 260, 50); // divida
-		label12.setFont(pequena);
+		label2.setBounds(900, 60, 260, 50); // divida
+		label2.setFont(pequena);
+		label10.setBounds(20, 80, 200, 50);
+                label10.setFont(media);
+		label10.setForeground(Color.WHITE);
                 
-		// Texto sobre empresa e proprietario 
+		// Texto sobre empresa 
 		label9.setBounds(10, 10, 800, 80);
                 label9.setFont(grande);
+		label9.setForeground(Color.WHITE);
 		
-		//Adiciona os botoes  a tela
+
+                //Adiciona os botoes  a tela
 		add(bt1);//empresa
 		add(bt2);//emprestimo
 		add(bt3);//pagar emprestimo
 		add(bt4);//lv da empresa
 		add(bt5);//sair
 		add(avancar);
-
+                add(label7);
 
                 //Adiciona os textos na	
 		add(label1);
 		add(label3);		
 		add(label4);
 		add(label5);	
-		add(label6);	
+		add(label6);
 		add(label8);	
 		add(label9);	
-		add(label12);
-
+		add(label2);
+                add(label10);
         
 		
                 
@@ -191,40 +195,43 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	
         }
 	
+
+        
 	
 	public static void main(String[] args) throws IOException{
-
-            JFrame f = new JFrame();
-            background fundo = new background();
+            
             inicio classe = new inicio();
             empresa  entidade = new empresa();
             terceirizadas servico = new terceirizadas();
+            calendario data = new calendario();
             
-            
+                passagem = data.carregardata();
                 divida = entidade.carregardivida();
                 level = entidade.carregarlv();
 		capital = entidade.carregardinheiro();
 		empresa = entidade.colocarnomenaempresa();
 		
-		 		 
+		 
+                
 		 classe.tela();
-                  f.add(fundo);
 				
         }
         
         
         
-        @Override
+       @Override
 	public void actionPerformed(ActionEvent e) {// funcoes do botao
 		
-		empresa  entidade = new empresa();
-
+             calendario data = new calendario();
+            empresa  entidade = new empresa();
+            terceirizadas terceirizadas = new terceirizadas();
+            inicio principal = new inicio();
 
 		
 		
 		if(e.getSource()== bt1) {//botao pra mudar o nome da empresa
 	
-			int i = JOptionPane.showConfirmDialog(null, "Olá chefe, sera cobrado uma pequena taxa de R$ 250 reais, \nestaria de acordo ?", "Setor de Contabilidade", 1);
+			int i = JOptionPane.showConfirmDialog(null, "Sera cobrado uma pequena taxa de R$ 250 reais, \nestaria de acordo ?", "Setor de Contabilidade", 1);
 			if(i== JOptionPane.YES_OPTION) {
 		  empresa= JOptionPane.showInputDialog(null, "Digite o nome da empresa", "Setor de Contabilidade", 1);
 
@@ -264,7 +271,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                     try {
                     divida = divida +5000;
                     entidade.salvardivida((int)divida);
-                    label12.setText("Divida com o banco R$ : "+divida);
+                    label2.setText("Divida com o banco R$ : "+divida);
                     
                     } catch (IOException ex) {
                         Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -296,10 +303,10 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                         Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
                     }
 
-                    label12.setText("Divida com o banco R$ : "+divida);
+                    label2.setText("Divida com o banco R$ : "+divida);
                     label8.setText("Capital R$ " +capital);
                 }
-                else JOptionPane.showMessageDialog(null, "Sempre podemos pagar depois chefe :P");
+                else JOptionPane.showMessageDialog(null, "Sempre poderemos pagar depois :P");
                     }
                 
                 else JOptionPane.showMessageDialog(null, "Não temos nenhuma divida fora do normal");
@@ -307,7 +314,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                     if(e.getSource()== bt4) {// subir lv da empresa
 		
 			if (capital <9000) {
-				JOptionPane.showMessageDialog(null, "Chefe, não temos tanto dinheiro assim para melhorar a empresa,"
+				JOptionPane.showMessageDialog(null, "Não temos tanto dinheiro assim para melhorar a empresa,"
                                         + "o upgrade custará em torne de 9000 reais. ", "Setor de COntabilidade", 1);				
 			}
 			
@@ -332,7 +339,6 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		}
 	
                 	if(e.getSource()== avancar) {//avançar
-                terceirizadas terceirizadas = new terceirizadas();
                 
             Object [][] dados =(Object[][]) terceirizadas.empresas();
                 
@@ -353,9 +359,11 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 }
                 
                 else{
+                
+                JOptionPane.showMessageDialog(null, "Dados da empresa : \n\nEmpresa : "+nome+"\nPagamento R$: "+pagamento
+                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente);
             
-                    int i = JOptionPane.showConfirmDialog(null, "Empresa : "+nome+"\nPagamento R$: "+pagamento
-                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente, "Setor contabil", 1);
+                    int i = JOptionPane.showConfirmDialog(null, "Podemos confirmar o acordo ?", "Setor contabil", 1);
                    
                     if(i==0){
                     
@@ -373,22 +381,33 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             else 
             acidente =0;
 
-                    try { // salvar o dinheiro no banco
-             capital = capital+saldo;
-             entidade.salvardinheiro(capital);
-            label8.setText("Capital R$ " +capital);
-                    } catch (IOException ex) {
-                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                 
+            label7.setText("Preparando");    
+            
+                JOptionPane.showMessageDialog(null, "Estaremos fazendo a locomoção na qual "
+                        + "o sistema ficará inoperante,\n voltaremos em 60 segundos.","Setor logistico",1);
+                
 
-               JOptionPane.showMessageDialog(null, "Empresa :    "+nome+"\n\nPagamento    "+pagamento
+            try { Thread.sleep(15000);
+        label7.setText("Tudo pronto :");
+            JOptionPane.showMessageDialog(null, "\tRelatório\n\n\nEmpresa :    "+nome+"\nPagamento    "+pagamento
           +"\nCusto              "+custo+"\nTaxas             " +acidente+"\n\nTotal                "+saldo,"Setor Contabil",1);
             
+ capital = capital+saldo;
+             entidade.salvardinheiro(capital);
+            label8.setText("Capital R$ " +capital);            
 
-                        
+            } catch (InterruptedException ex) {} catch (IOException ex) {
+                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+;}
+            
+            label10.setText(data.tempo());
+            
+            
+ //           try {data.salvardata();} catch (IOException ex) {}
+                    
+
 }
 }                
 }           
 }	
-}
