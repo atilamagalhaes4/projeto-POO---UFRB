@@ -235,37 +235,30 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 			if(i== JOptionPane.YES_OPTION) {
 		  empresa= JOptionPane.showInputDialog(null, "Digite o nome da empresa", "Setor de Contabilidade", 1);
 
-		try {
-			entidade.armazenandonome(empresa);
+		try {entidade.armazenandonome(empresa);
 		capital-=250;
                         entidade.salvardinheiro(capital);
                 label8.setText("Capital R$ "+capital);
 		  label9.setText(empresa);
                 JOptionPane.showMessageDialog(null, "Vinhemos avisar que foi liberado uma "
 				+ "verba para o Setor Contabil de R$ 250 reais\n restando assim " +capital +" no caixa da empresa.", "Setor de RH", 1);
-		} catch (IOException e1) {
-		
-			JOptionPane.showMessageDialog(null, "Nao foi possivel fazer a operacao\n chame o programador.", "Error de programacao", 0);
-		} 
+		} catch (IOException e1) {} 
 			}
-			else JOptionPane.showMessageDialog(null, "O senhor Optou por nao alterar, voltando ao trabalho.","Setor de Contabilidade", 1);
+			else JOptionPane.showMessageDialog(null, "Voce Optou por nao alterar.","Setor de Contabilidade", 1);
 		}
 		
 			
 		if(e.getSource()== bt2) { // botao do emprestimo
 			
-			int i = JOptionPane.showConfirmDialog(null, "Podemos lhe emprestar R$ : 5 mil reais."
-                                + "\nDeseja sacar agora ?", "Nosso banco", 1);
+			int i = JOptionPane.showConfirmDialog(null, "Temos em mente que R$ : 5 mil reais, é o suficiente"
+                                + "\nDeseja sacar agora ?", "Setor Contabil", 1);
 
                     if(i==0){
                     try {
                     capital +=5000;
                         entidade.salvardinheiro(capital);
                         label8.setText("Capital R$ " +capital);
-                    } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Ocorreu um erro com o capital, chame o programador.");
-                    
-                    }
+                    } catch (IOException ex) {}
 			
                         
                     try {
@@ -273,9 +266,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                     entidade.salvardivida((int)divida);
                     label2.setText("Divida com o banco R$ : "+divida);
                     
-                    } catch (IOException ex) {
-                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    } catch (IOException ex) {}
                     }
                     else JOptionPane.showMessageDialog(null, "Volteremos a trabalhar", "Setor Contabil", 1);
                         }
@@ -284,27 +275,27 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		
                     if(divida !=0){
                 int i = JOptionPane.showConfirmDialog(null, "A nossa divida"
-                        + "esta avaliada em R$ "+divida+"Podemos transferir o dinheiro ?", "Setor Contabil", 1);
+                        + " esta avaliada em R$ "+divida+",\n porém com juros de 10% "
+                                + "teremos um acressimo de "+(divida*0.1)
+                        +"\n Podemos transferir o dinheiro ?", "Setor Contabil", 1);
 		
                 if(i == 0){
-                capital= capital-divida;        
+                if(capital<divida) JOptionPane.showMessageDialog(null, "Voce nao tem o dinheiro suficiente para essa operação","Setor Contabil", 1);
+                
+                else{
+                
+                float montante = divida +(divida*(float)0.1);
+                capital= capital-montante;        
                 divida = 0;
                 
-                try {
-                        entidade.salvardinheiro(capital);
-                    } catch (IOException ex) {
-                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
 
 
-                    try {
-                        entidade.salvardivida((int)divida);
-                    } catch (IOException ex) {
-                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                try {entidade.salvardivida((int)divida);} catch (IOException ex) {}
 
                     label2.setText("Divida com o banco R$ : "+divida);
                     label8.setText("Capital R$ " +capital);
+                }
                 }
                 else JOptionPane.showMessageDialog(null, "Sempre poderemos pagar depois :P");
                     }
@@ -314,8 +305,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                     if(e.getSource()== bt4) {// subir lv da empresa
 		
 			if (capital <9000) {
-				JOptionPane.showMessageDialog(null, "Não temos tanto dinheiro assim para melhorar a empresa,"
-                                        + "o upgrade custará em torne de 9000 reais. ", "Setor de COntabilidade", 1);				
+				JOptionPane.showMessageDialog(null, "Um upgrade custa em torno de "
+                                        + "aproximadamente 9 mil reais", "Setor de COntabilidade", 1);				
 			}
 			
                         else{
@@ -404,7 +395,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             label10.setText(data.tempo());
             
             
- //           try {data.salvardata();} catch (IOException ex) {}
+            try {data.salvardata();} catch (IOException ex) {}
                     
 
 }
