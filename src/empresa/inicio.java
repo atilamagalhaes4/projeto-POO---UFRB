@@ -16,8 +16,6 @@ import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
@@ -28,7 +26,7 @@ import javax.swing.ImageIcon;
 
 public class inicio extends JFrame implements ActionListener{
 
-	static int level = 1;
+	static int level;
 	static String empresa;
 	static float capital;
         static float divida;
@@ -384,17 +382,19 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
           +"\nCusto              "+custo+"\nTaxas             " +acidente+"\n\nTotal                "+saldo,"Setor Contabil",1);
             
  capital = capital+saldo;
-             entidade.salvardinheiro(capital);
+
             label8.setText("Capital R$ " +capital);            
 
-            } catch (InterruptedException ex) {} catch (IOException ex) {
-                        Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
+            } catch (InterruptedException ex) {}
 ;}
-            
+          
+
             label10.setText(data.tempo());
             
+            label8.setText("Capital R$ "+capital);
             
+            try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
             try {data.salvardata();} catch (IOException ex) {}
                     
 
