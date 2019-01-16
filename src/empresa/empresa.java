@@ -21,6 +21,7 @@ public class empresa {
 	    }
 
 	    arq.close();
+            if(nome == null) return "Nome da empresa";
 		return (String)nome;
 }
 	
@@ -41,24 +42,24 @@ public class empresa {
 		    FileReader arq = new FileReader("verba.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);
 		    String linha = lerArq.readLine();
-                   boolean tal= false;
                     float capital = 0;
 		    while(linha != null) {	// se tiver nome no registro ele apenas colocara no lugar.
 		    	nome = linha;
                         capital = Float.parseFloat(nome);
 		    	linha = lerArq.readLine();
-                        tal = true;
                     }
-                    if(tal == false) capital = 1200;
+
 		    arq.close();
 		    return (float)capital;
 		}
+                
 		void salvarlv(int level) throws IOException{
 		    PrintWriter arq = new PrintWriter("lv.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(""+level);
 			arq.close();
 		}
+                
 		int carregarlv() throws IOException {//O slogan da empresa
 		    FileReader arq = new FileReader("lv.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);
@@ -80,6 +81,7 @@ public class empresa {
 		    gravarArq.printf(""+divida);
 			arq.close();
 		}
+                
 		float carregardivida() throws IOException {//O slogan da empresa
 		    FileReader arq = new FileReader("divida.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);

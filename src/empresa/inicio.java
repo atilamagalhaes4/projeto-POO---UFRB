@@ -41,10 +41,13 @@ public class inicio extends JFrame implements ActionListener{
 	JLabel label6; //level
         JLabel label2;
         JLabel label10;
+        JLabel label11;
+        JLabel label12;
+        
 
 JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
- //          ImageIcon icon = new ImageIcon("carregando.gif");
- 
+//           ImageIcon icone = new ImageIcon("icone.png");
+    
 
 	
 
@@ -55,8 +58,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	JButton bt3 = new JButton("Clique");	
 	JButton bt4 = new JButton("Clique");
 	JButton bt5 = new JButton("Sair");
-
-                
+        JButton bt6 = new JButton("Clique");//terminar jogo
+        JButton bt7 = new JButton("Clique");//sobre o desenvolvedor        
 
         
 	public void tela() throws IOException {
@@ -65,7 +68,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 
 
     //Linhas relacionados a tabela
-        Object [][] dados = (Object[][]) inicio.empresas();        	
+        Object [][] dados = (Object[][]) inicio.listarempresas();        	
         String [] colunas = {"Empresa", "Pagamento R$",
             "Lv necessario", "Custo", "Possiveis taxas"};
         
@@ -110,7 +113,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 label8 = new JLabel("Capital R$ "+capital);
 		label7 = new JLabel("Tudo pronto :");
 		label10 = new JLabel(passagem);
-        
+                label11 = new JLabel("Terminar o jogo");
+                label12 = new JLabel("Sobre o desenvolvedor");
         
 		//Coloca acoes nos botoes
 		avancar.addActionListener(this);
@@ -119,8 +123,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		bt3.addActionListener(this);
 		bt4.addActionListener(this);
 		bt5.addActionListener(this);
-		
-		
+		bt6.addActionListener(this);		
+		bt7.addActionListener(this);
 		
             
             
@@ -129,15 +133,21 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		bt2.setBounds(770, 350, 100, 30);
 		bt3.setBounds(770, 400, 100, 30);
 		bt4.setBounds(770, 450, 100, 30);
-		bt5.setBounds(10, 620, 100, 30);
-		avancar.setBounds(1068, 620, 100, 30);
+                bt6.setBounds(770, 500,100,30);
+                bt7.setBounds(770, 550, 100, 30);
+                bt5.setBounds(10,  620, 100, 30);
+	   avancar.setBounds(1068, 620, 100, 30);
 		
+           
+            
 		//Localizacao dos textos dos botoes
 		label1.setBounds(885, 300, 260, 30);
 		label3.setBounds(885, 350, 260, 30);
 		label4.setBounds(885, 400, 260, 30);
 		label5.setBounds(885, 450, 260, 30);
 		label7.setBounds(985, 620, 150, 30);
+                label11.setBounds(885,500,100,30);
+                label12.setBounds(885, 550, 260, 30);
 
 		//3 tipos de fonte
             Font pequena = new Font("TimesRoman",Font.PLAIN, 14);
@@ -165,7 +175,9 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		add(bt2);//emprestimo
 		add(bt3);//pagar emprestimo
 		add(bt4);//lv da empresa
+                add(bt6); //terminar o jogo
 		add(bt5);//sair
+                add(bt7);//sobre o desenvolvedor
 		add(avancar);
                 add(label7);
 
@@ -179,17 +191,19 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		add(label9);	
 		add(label2);
                 add(label10);
-        
-		
+                add(label11);
+		add(label12);
                 
 		//Definicoes da tela
+
+            setIconImage(new ImageIcon("icone.png").getImage());
+            setTitle("Programação voltado á logistica - UFRB");
             add(fundo);    
             fundo.setBounds(0, 0,1200, 700);
-                setTitle("Programação voltado á logistica - UFRB");
-		setSize(1200, 700);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		setVisible(true);
+            setSize(1200, 700);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setVisible(true);
 	
         }
 	
@@ -218,7 +232,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
         
         
        @Override
-	public void actionPerformed(ActionEvent e) {// funcoes do botao
+
+       public void actionPerformed(ActionEvent e) {// funcoes do botao
 		
              calendario data = new calendario();
             empresa  entidade = new empresa();
@@ -275,7 +290,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 int i = JOptionPane.showConfirmDialog(null, "A nossa divida"
                         + " esta avaliada em R$ "+divida+",\n porém com juros de 10% "
                                 + "teremos um acressimo de "+(divida*0.1)
-                        +"\n Podemos transferir o dinheiro ?", "Setor Contabil", 1);
+                        +"\n Podemos tentar transferir o dinheiro ?", "Setor Contabil", 1);
 		
                 if(i == 0){
                 if(capital<divida) JOptionPane.showMessageDialog(null, "Voce nao tem o dinheiro suficiente para essa operação","Setor Contabil", 1);
@@ -300,15 +315,20 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 
                 else JOptionPane.showMessageDialog(null, "Não temos nenhuma divida fora do normal");
 		}
+                
+                
                     if(e.getSource()== bt4) {// subir lv da empresa
 		
 			if (capital <9000) {
-				JOptionPane.showMessageDialog(null, "Um upgrade custa em torno de "
+				JOptionPane.showMessageDialog(null, "Cada upgrade custa em torno de "
                                         + "aproximadamente 9 mil reais", "Setor de COntabilidade", 1);				
 			}
 			
+                        
+                        
                         else{
-
+                        
+                            if(level <10){
                             try {
                         capital= capital-8920;        
                         entidade.salvardinheiro(capital);
@@ -320,22 +340,29 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                         label6.setText("Level da empresa "+level);
                         label8.setText("Capital R$ " +capital);
                         }
+                    else        
+                    JOptionPane.showMessageDialog(null, "Voce chegou ao level limite","Setor COntabil",1);
+                        
+                        }
+			}
 			
-			
-		}
+		
+                    
+                    
+                    
 		if(e.getSource()== bt5) {//sair
 			System.exit(0);
 		}
 	
                 	if(e.getSource()== avancar) {//avançar
                 
-            Object [][] dados =(Object[][]) terceirizadas.empresas();
+            Object [][] dados =(Object[][]) terceirizadas.listarempresas();
                 
            String nome = (String) dados [linha][0];
             int pagamento = (int) dados [linha][1];
             int lv = (int)dados [linha][2];            
             int custo = (int) dados [linha][3];         
-            int acidente = (int) dados [linha][4];
+            int taxa = (int) dados [linha][4];
             Random gerador = new Random();
              
              
@@ -343,14 +370,14 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
          
             if(lv>level){
                 
-                   JOptionPane.showMessageDialog(null, "Não temos como atender a "+nome
-                           + ", temos que melhorar um pouco mais a nossa estrutura.","Setor contabil",1);
+                   JOptionPane.showMessageDialog(null, "Não temos como atender a '"+nome
+                           + "' temos que melhorar um pouco mais a nossa estrutura.","Setor contabil",1);
                 }
                 
                 else{
                 
                 JOptionPane.showMessageDialog(null, "Dados da empresa : \n\nEmpresa : "+nome+"\nPagamento R$: "+pagamento
-                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+acidente);
+                    +"\nCusto R$: "+custo+"\nLevel necessario : "+lv+"\nPossiveis taxas R$: "+taxa);
             
                     int i = JOptionPane.showConfirmDialog(null, "Podemos confirmar o acordo ?", "Setor contabil", 1);
                    
@@ -365,10 +392,10 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 
                 
             if(a%2==0) // vai ter acidente
-            saldo=saldo-(float)acidente;
+            saldo=saldo-(float)taxa;
 
             else 
-            acidente =0;
+            taxa =0;
 
             label7.setText("Preparando");    
             
@@ -379,18 +406,18 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             try { Thread.sleep(15000);
         label7.setText("Tudo pronto :");
             JOptionPane.showMessageDialog(null, "\tRelatório\n\n\nEmpresa :    "+nome+"\nPagamento    "+pagamento
-          +"\nCusto              "+custo+"\nTaxas             " +acidente+"\n\nTotal                "+saldo,"Setor Contabil",1);
+          +"\nCusto              "+custo+"\nTaxas             " +taxa+"\n\nTotal                "+saldo,"Setor Contabil",1);
             
  capital = capital+saldo;
 
             label8.setText("Capital R$ " +capital);            
 
+             label10.setText(data.tempo());
+           
 
-            } catch (InterruptedException ex) {}
-;}
+            } catch (InterruptedException ex) {};}
           
 
-            label10.setText(data.tempo());
             
             label8.setText("Capital R$ "+capital);
             
@@ -399,6 +426,42 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                     
 
 }
-}                
+}  
+	if(e.getSource()== bt6) {
+        
+            
+            if(capital >= 15000&&level ==10&&divida ==0){
+            
+        JOptionPane.showMessageDialog(null, "Felizmente(ou infelizmente) voce chegou ao fim :'/", "Setor Contabil", 1);
+        
+        int i = JOptionPane.showConfirmDialog(null, "Deseja resetar ?", "Sistema", 1);
+        
+        if(i==0){
+        capital = 0;
+        level = 0;
+ 
+        label8.setText("Capital R$ "+capital);
+        label6.setText("Level da empresa "+level);
+        
+            try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
+            try {entidade.salvarlv(level);} catch (IOException ex) {}
+            
+        }
+        
+            }
+            
+            else
+        JOptionPane.showMessageDialog(null, "Pre-requisitos \n\nLv 10\nDivida R$ 0.0\nCapital R$ 15000.0", "Setor Contabil", 1);
+       
+        
+        }
+        	if(e.getSource()== bt7) {
+                
+            JOptionPane.showMessageDialog(null, "Programador : Atila Magalhaes\n"
+                    +"Alvo : Conclusão da materia De POO (Principios a Orientacão a objetos)\n"
+                    + "Professor : Guilherme Araújo \n3º Semestre (2018.2)\n"
+                    + "Objetivo :  Desenvolver um  algoritmo que simule o \nfuncionamento de uma empresa voltado a logística","UFRB",1);
+                    
+                }
 }           
 }	
