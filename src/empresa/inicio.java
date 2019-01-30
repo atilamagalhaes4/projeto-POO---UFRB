@@ -16,6 +16,8 @@ import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 
@@ -223,8 +225,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		capital = entidade.carregardinheiro();
 		empresa = entidade.colocarnomenaempresa();
 		
-		 
-                
+		
 		 classe.tela();
 				
         }
@@ -238,7 +239,6 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
              calendario data = new calendario();
             empresa  entidade = new empresa();
             terceirizadas terceirizadas = new terceirizadas();
-            inicio principal = new inicio();
 
 		
 		
@@ -264,7 +264,8 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		if(e.getSource()== bt2) { // botao do emprestimo
 			
 			int i = JOptionPane.showConfirmDialog(null, "Temos em mente que R$ : 5 mil reais, é o suficiente"
-                                + "\nDeseja sacar agora ?", "Setor Contabil", 1);
+                                + "\nlembrando que terá um acrescimo de 5% ao mes.\n"
+                                + "Deseja sacar agora ?", "Setor Contabil", 1);
 
                     if(i==0){
                     try {
@@ -334,9 +335,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                         entidade.salvardinheiro(capital);
                         level = level+1;
                         entidade.salvarlv(level);
-                            } catch (IOException ex) {
-                                JOptionPane.showMessageDialog(null, "O progrograma se manifestou de forma inesperada, recomenda-se reiniciar.", "Erro interno", 1);
-                            }
+                            } catch (IOException ex) {}
                         label6.setText("Level da empresa "+level);
                         label8.setText("Capital R$ " +capital);
                         }
@@ -415,10 +414,11 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
              label10.setText(data.tempo());
            
 
-            } catch (InterruptedException ex) {};}
+            } catch (InterruptedException ex) {} catch (IOException ex) {}
+;}
           
-
-            
+                    
+                label2.setText("Divida com o banco R$ : "+divida);
             label8.setText("Capital R$ "+capital);
             
             try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
@@ -427,7 +427,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 
 }
 }  
-	if(e.getSource()== bt6) {
+	if(e.getSource()== bt6) { // terminar o jogo
         
             
             if(capital >= 15000&&level ==10&&divida ==0){

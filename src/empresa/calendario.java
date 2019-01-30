@@ -10,8 +10,10 @@ import javax.swing.JOptionPane;
 
 public class calendario extends inicio {
  
+    empresa entidade = new empresa();
     float montante ;
     int lv = inicio.level;
+    float divida;
  
     static int    dia;
     static int    mes;
@@ -87,7 +89,7 @@ montante = 102+62+82+52;
     
 
 
-    public String tempo(){ // passagem do tempo
+    public String tempo() throws IOException{ // passagem do tempo
     
     dia = dia+7;
 
@@ -95,6 +97,15 @@ montante = 102+62+82+52;
     funcionarios();
     dia= 1;
     mes++;
+    // Divida do mes se houver
+    this.divida = inicio.divida;
+    if(divida >0){
+    montante = divida*(float)0.5;
+    montante = montante +  divida;
+    inicio.divida = montante;
+    entidade.salvardivida((int)montante);
+    }
+    ////
     if(mes>12){
     mes =1;
     ano++;
@@ -166,8 +177,6 @@ montante = 102+62+82+52;
       if (mes == 10)return dia+dez+ano;
       if (mes == 11)return dia+onze+ano;
       if (mes == 12)return dia+doze+ano;
-        
-
         
               return dia+"."+mes+"."+ano;
     }
