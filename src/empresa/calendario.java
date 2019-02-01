@@ -100,7 +100,7 @@ montante = 102+62+82+52;
     // Divida do mes se houver
     this.divida = inicio.divida;
     if(divida >0){
-    montante = divida*(float)0.5;
+    montante = divida*(float)0.05;
     montante = montante +  divida;
     inicio.divida = montante;
     entidade.salvardivida((int)montante);

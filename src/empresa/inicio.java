@@ -45,7 +45,7 @@ public class inicio extends JFrame implements ActionListener{
         JLabel label10;
         JLabel label11;
         JLabel label12;
-        
+  JTable tabela;
 
 JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 //           ImageIcon icone = new ImageIcon("icone.png");
@@ -62,15 +62,17 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	JButton bt5 = new JButton("Sair");
         JButton bt6 = new JButton("Clique");//terminar jogo
         JButton bt7 = new JButton("Clique");//sobre o desenvolvedor        
-
+        Object [][] dados;
+ 
         
 	public void tela() throws IOException {
         
-            terceirizadas inicio = new terceirizadas();
+            terceirizadas terceiros = new terceirizadas();
 
 
     //Linhas relacionados a tabela
-        Object [][] dados = (Object[][]) inicio.listarempresas();        	
+        this.dados = (Object[][]) terceiros.listarempresas();       	
+        
         String [] colunas = {"Empresa", "Pagamento R$",
             "Lv necessario", "Custo", "Possiveis taxas"};
         
@@ -78,13 +80,15 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
         
 
         
-        JTable tabela = new JTable(dados, colunas){
+        tabela = new JTable(dados, colunas){
                 @Override
                 public boolean isCellEditable(int row, int column) {
                 return false;
                 }
         };
         
+
+
         tabela.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
             
@@ -94,7 +98,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                });
         
         
-        JScrollPane rolagem = new JScrollPane(tabela);
+       JScrollPane rolagem = new JScrollPane(tabela);
         add(rolagem);
         rolagem.setBounds(10,300,750, 300);
 
@@ -355,7 +359,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	
                 	if(e.getSource()== avancar) {//avançar
                 
-            Object [][] dados =(Object[][]) terceirizadas.listarempresas();
+            Object [][] dados =(Object[][]) terceirizadas.selecionada;
                 
            String nome = (String) dados [linha][0];
             int pagamento = (int) dados [linha][1];
@@ -424,7 +428,11 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
             try {data.salvardata();} catch (IOException ex) {}
                     
+            
+            
+ this.dados =   (Object[][]) terceirizadas.listarempresas();
 
+tabela.repaint();   
 }
 }  
 	if(e.getSource()== bt6) { // terminar o jogo
