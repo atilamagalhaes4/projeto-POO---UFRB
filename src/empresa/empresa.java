@@ -9,7 +9,7 @@ public class empresa {
 
 	String nome;
 
-	String colocarnomenaempresa() throws IOException{ // colocara nome na empresa
+	String carregarempresa() throws IOException{ // colocara nome na empresa
 		
 	    FileReader arq = new FileReader("nome da empresa.txt");
 	    BufferedReader lerArq = new BufferedReader(arq);
@@ -25,7 +25,7 @@ public class empresa {
 		return (String)nome;
 }
 	
-	void armazenandonome(String nome) throws IOException {
+	void salvarnome(String nome) throws IOException {
 	    FileWriter arq = new FileWriter("nome da empresa.txt");
 	    PrintWriter gravarArq = new PrintWriter(arq);
 	     gravarArq.printf(nome);

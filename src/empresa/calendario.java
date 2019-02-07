@@ -23,63 +23,63 @@ public void funcionarios(){ // ágar salario dos funcionarios
 
 
     if(lv ==1){
-montante = 102+62+82+52;    
+montante = 102+62+82+52;
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 102.0\n"
-                + "Internet R$ 62.0\nEnergia : R$ 82.0\nAgua : R$ 52.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 62.0\nEnergia : R$ 82.0\nAgua : R$ 52.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==2){
     montante = 152+92+102+72;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 152.0\n"
-                + "Internet R$ 92.0\nEnergia : R$ 102.0\nAgua : R$ 72.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 92.0\nEnergia : R$ 102.0\nAgua : R$ 72.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==3){
     montante = 192+92+121+102;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 192.0\n"
-                + "Internet R$ 92.0\nEnergia : R$ 121.0\nAgua : R$ 102.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 92.0\nEnergia : R$ 121.0\nAgua : R$ 102.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==4){
     montante = 222+132+122+122;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 222.0\n"
-                + "Internet R$ 132.0\nEnergia : R$ 122.0\nAgua : R$ 122.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 132.0\nEnergia : R$ 122.0\nAgua : R$ 122.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==5){
         montante = 272+172+152+167;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 272.0\n"
-                + "Internet R$ 172.0\nEnergia : R$ 152.0\nAgua : R$ 167.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 172.0\nEnergia : R$ 152.0\nAgua : R$ 167.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==6){
             montante = 322+212+192+207;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 322.0\n"
-                + "Internet R$ 212.0\nEnergia : R$ 192.0\nAgua : R$ 207.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 212.0\nEnergia : R$ 192.0\nAgua : R$ 207.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==7){
                 montante = 372+252+222+257;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 372.0\n"
-                + "Internet R$ 252.0\nEnergia : R$ 222.0\nAgua : R$ 257.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 252.0\nEnergia : R$ 222.0\nAgua : R$ 257.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }  
     if(lv ==8){
                     montante = 402+292+272+307;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 372.0\n"
-                + "Internet R$ 252.0\nEnergia : R$ 222.0\nAgua : R$ 257.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 252.0\nEnergia : R$ 222.0\nAgua : R$ 257.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
     if(lv ==9){
                         montante = 452+342+312+367;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 452.0\n"
-                + "Internet R$ 342.0\nEnergia : R$ 312.0\nAgua : R$ 367.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 342.0\nEnergia : R$ 312.0\nAgua : R$ 367.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }         
     if(lv ==10){
                             montante = 521+414+371+412;    
         JOptionPane.showMessageDialog(null, "Relatório Mensal \n\nSalario de funcionarios lv "+lv+" :  R$ 521.0\n"
-                + "Internet R$ 414.0\nEnergia : R$ 371.0\nAgua : R$ 412.0\n\nTotal : R$"+montante, "Setor financeiro", 1);    
+                + "Internet R$ 414.0\nEnergia : R$ 371.0\nAgua : R$ 412.0\n-------------\nTotal : R$ -"+montante, "Setor financeiro", 1);    
     super.capital = super.capital - montante;
     }
 
@@ -122,7 +122,7 @@ montante = 102+62+82+52;
 			arq.close();
 		}
                     
-		String carregardata() throws IOException {//O slogan da empresa
+		String carregardata() throws IOException {//
 		    FileReader arq = new FileReader("calendario.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);
 		    String linha = lerArq.readLine();
