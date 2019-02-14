@@ -1,6 +1,7 @@
 package empresa;
 
 
+import static empresa.calendario.dia;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,7 +11,9 @@ import javax.swing.JTable;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
@@ -20,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.Timer;
 
 
@@ -34,7 +38,7 @@ public class inicio extends JFrame implements ActionListener{
 	static String empresa;
 	static float capital;
         static float divida;
-        static boolean emprestimo = false;
+        static boolean condicao;
 	int linha;
         static String passagem;
 
@@ -63,7 +67,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	JButton bt3 = new JButton("Clique");	
 	JButton bt4 = new JButton("Clique");
 	JButton bt5 = new JButton("Sair");
-        JButton bt6 = new JButton("Clique");//terminar jogo
+        JButton bt6 = new JButton("Clique");//novo jogo
         JButton bt7 = new JButton("Clique");//sobre o desenvolvedor        
         Object [][] dados;
  
@@ -123,7 +127,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 label8 = new JLabel("Capital R$ "+capital);
 		label7 = new JLabel("Tudo pronto :");
 		label10 = new JLabel(passagem);
-                label11 = new JLabel("Terminar o jogo");
+                label11 = new JLabel("Novo Jogo");
                 label12 = new JLabel("Sobre o desenvolvedor");
         
 		//Coloca acoes nos botoes
@@ -185,7 +189,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		add(bt2);//emprestimo
 		add(bt3);//pagar emprestimo
 		add(bt4);//lv da empresa
-                add(bt6); //terminar o jogo
+                add(bt6); //novo jogo
 		add(bt5);//sair
                 add(bt7);//sobre o desenvolvedor
 		add(avancar);
@@ -217,7 +221,18 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 	
         }
 	
-
+public void falir(){
+if(capital<0){
+            fundo.setIcon(new ImageIcon("animacao2.png"));
+            bt1.setEnabled(false);
+            bt2.setEnabled(false);
+            bt3.setEnabled(false);
+            bt4.setEnabled(false);
+            bt5.setEnabled(false);
+            bt7.setEnabled(false);
+//JOptionPane.showMessageDialog(null, "A empresa nao teve dinheiro para pagar os funcionarios, sendo assim a empresa faliu.\n Inicie um novo jogo");            
+}
+}
         
 	
 	public static void main(String[] args) throws IOException{
@@ -233,7 +248,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 level = entidade.carregarlv();
 		capital = entidade.carregardinheiro();
 		empresa = entidade.carregarempresa();
-		
+		classe.falir();
 		
 		 classe.tela();
 				
@@ -268,13 +283,16 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 				+ "verba para o Setor Contabil de R$ 250 reais\n restando assim " +capital +" no caixa da empresa.", "Setor de RH",-1);
 		} catch (IOException e1) {} 
 			}
-			else JOptionPane.showMessageDialog(null, "Voce Optou por nao alterar.","Setor de Contabilidade",-1);
 		}
 		
 			
 		if(e.getSource()== bt2) { // botao do emprestimo
 			
-			int i = JOptionPane.showConfirmDialog(null, "Temos em mente que R$ : 5 mil reais, é o suficiente, lembrando que terá"
+		if(divida>50000){
+                JOptionPane.showMessageDialog(null, "Nao conseguimos um novo emprestimo, tente abater a divida e tentaremos denovo","Setor financeiro",-1);
+                }
+                    else{
+                    int i = JOptionPane.showConfirmDialog(null, "Temos em mente que R$ : 5 mil reais é o suficiente, lembrando que terá"
                                 + "\n um acrescimo de 5% ao mes e de 10% no dia do pagamento.\n"
                                 + "Deseja sacar agora ?", "Setor Contabil", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                     if(i==0){
@@ -287,72 +305,80 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                         
                     try {
                     divida = divida +5000;
-                    entidade.salvardivida((int)divida);
+                    entidade.salvardivida((int)divida); 
                     label2.setText("Divida com o banco R$ : "+divida);
                     
                     } catch (IOException ex) {}
                     }
                     else JOptionPane.showMessageDialog(null, "Volteremos a trabalhar", "Setor Contabil",-1);
                         }
-                
+       }
 		if(e.getSource()== bt3) { // Pagar divida
-		int percentual = (int) (divida*0.1);
+
                     if(divida !=0){
-                        int i = JOptionPane.showConfirmDialog(null, "A nossa divida esta avaliada em R$ "+divida+",\n porém com juros de 10% "
-                                + "teremos um acressimo de "+percentual+".0"
-                        +"\n Podemos tentar transferir o dinheiro ?", "Setor Contabil", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                        int i = JOptionPane.showConfirmDialog(null, "A nossa divida esta avaliada em R$ "+divida+", porém  podemos pagar parte da divida.\n Deseja pagar parte ?", "Setor Contabil", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		
                 if(i == 0){
-                if(capital<divida) JOptionPane.showMessageDialog(null, "Voce nao tem o dinheiro suficiente para essa operação","Setor Contabil",-1);
+                String diminuir = JOptionPane.showInputDialog(null, "Digite o valor a ser transferido separado por '.' para diferenciar os centavos dos reais.\n Lance minimo R$ 1000.0 :", "Setor financeiro",-1);
                 
-                else{
+                float teste = capital;
+                float preco = 0;
+                preco = Float.parseFloat(diminuir);
                 
-                float montante = divida +percentual;
-                capital= (int)capital-montante;        
-                divida = 0;
-                
-                try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
-
-
-                try {entidade.salvardivida((int)divida);} catch (IOException ex) {}
-
-                    label2.setText("Divida com o banco R$ : "+divida);
+                if(preco>=1000){
+                if(capital>=preco){
+                    capital = capital - preco;
+                    divida = divida - preco;
+                    try {
+                    entidade.salvardinheiro(capital);
+                    entidade.salvardivida((int)divida);
                     label8.setText("Capital R$ " +capital);
+                    label2.setText("Divida com o banco R$ : "+divida);
+                    } catch (IOException ex) {}
+                JOptionPane.showMessageDialog(null, "Dinheiro transferido","Setor financeiro",-1);
+                }else JOptionPane.showMessageDialog(null, "Nao temos tanto dinheiro assim.","Banco",-1);
+            }else JOptionPane.showMessageDialog(null, "Lance minimo R$ 1000.0 reais","Banco",-1);
                 }
                 }
-                else JOptionPane.showMessageDialog(null, "Sempre temos a opcao de pagar depois", "Setor de Contabilidade",-1);
-                    }
-                
-                else JOptionPane.showMessageDialog(null, "Não temos nenhuma divida fora do normal", "Setorf de Contabilidade",-1);
-		}
-                
-                
+                }
                     if(e.getSource()== bt4) {// subir lv da empresa
 		
-			if (capital <9000) {
-				JOptionPane.showMessageDialog(null, "Cada upgrade custa em torno de "
-                                        + "aproximadamente 9 mil reais", "Setor de Contabilidade",-1);				
-			}
-			
-                        
-                        
-                        else{
+                    float valor = 0;
+                    
+                    if(level ==0)       valor = (float) 6102.0;	
+                    if(level ==1)	valor = (float) 7102.0;
+                    if(level ==2)	valor = (float) 8102.0;
+                    if(level ==3)	valor = (float) 9102.0;
+                    if(level ==4)	valor = (float) 10102.0;
+                    if(level ==5)	valor = (float) 11102.0;
+                    if(level ==6)	valor = (float) 12102.0;
+                    if(level ==7)	valor = (float) 13102.0;
+                    if(level ==8)	valor = (float) 14102.0;
+                    if(level ==9)	valor = (float) 15102.0;	
                         
                             if(level <10){
+ int i = JOptionPane.showConfirmDialog(null, "Nós estamos no lv "+level+", para essa operacao sera necessario "+valor
+        +"\nEstaria de acordo ?" , "Setor contabil", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                  
+ if(i==0){
+     if(capital>valor){
                             try {
-                        capital= capital-8920;        
+                        capital= capital-valor;        
                         entidade.salvardinheiro(capital);
                         level = level+1;
                         entidade.salvarlv(level);
                             } catch (IOException ex) {}
                         label6.setText("Level da empresa "+level);
                         label8.setText("Capital R$ " +capital);
+ }
+     else JOptionPane.showConfirmDialog(null, "Nao temos o dinheiro necessario","Setor COntabil",-1);
+                            }
                         }
                     else        
-                    JOptionPane.showMessageDialog(null, "Voce chegou ao level limite","Setor COntabil",-1);
+                    JOptionPane.showMessageDialog(null, "Chegamos ao level limite","Setor COntabil",-1);
                         
                         }
-			}
+			
 			
 		
                     
@@ -415,8 +441,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
         loop.carregandos();
         
         label7.setText("Tudo pronto :");
-        avancar.setEnabled(true);
-
+        
             try {
             JOptionPane.showMessageDialog(null, "Empresa :    "+nome+"\nPagamento    "+pagamento
           +"\nCusto              "+custo+"\nTaxas             " +taxa+"\n-------------\nTotal R$ : "+saldo,"Relatório",-1);
@@ -424,22 +449,32 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
  capital = capital+saldo;
 
             label8.setText("Capital R$ " +capital);            
-
              label10.setText(data.tempo());
-           
-
             } catch (IOException ex) {}
-;
+
+            if(condicao == true){
+            fundo.setIcon(new ImageIcon("animacao2.png"));
+            JOptionPane.showMessageDialog(null, "A empresa nao teve dinheiro para pagar os funcionarios, sendo assim a empresa faliu.\n Inicie um novo jogo");
+            bt1.setEnabled(false);
+            bt2.setEnabled(false);
+            bt3.setEnabled(false);
+            bt4.setEnabled(false);
+            bt5.setEnabled(false);
+            bt7.setEnabled(false);
+            }
             
-                 label2.setText("Divida com o banco R$ : "+divida);
+            label2.setText("Divida com o banco R$ : "+divida);
             label8.setText("Capital R$ "+capital);
             
             try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
             try {data.salvardata();} catch (IOException ex) {}
                     
             
-            int linha;      
+            if(capital>0){
+            int linha;
+            loop.atualizando();
             terceirizadas.listarempresas();
+            avancar.setEnabled(true);
             this.dados = terceirizadas.lista;
             for(linha=0;linha<80;linha++){
                                         
@@ -453,7 +488,7 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
                 
             tabela.setValueAt(this.dados [linha][4], linha, 4);
             }
-            
+            }
             }
           
                     
@@ -463,34 +498,55 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             
 }
 }  
-	if(e.getSource()== bt6) { // terminar o jogo
+	if(e.getSource()== bt6) { // novo jogo
         
-            
-            if(capital >= 15000&&level ==10&&divida ==0){
-            
-        JOptionPane.showMessageDialog(null, "Felizmente(ou infelizmente) voce chegou ao fim :'/", "Setor Contabil",-1);
+        JOptionPane.showMessageDialog(null, "Todo progresso será perdido", "Setor Contabil",-1);
         
         int i = JOptionPane.showConfirmDialog(null, "Deseja resetar ?", "Sistema", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         
         if(i==0){
+            
+            PrintWriter arq = null;
+                 try {arq = new PrintWriter("calendario.txt");
+                 } catch (FileNotFoundException ex) {}
+                 
+		    PrintWriter gravarArq = new PrintWriter(arq);
+		    gravarArq.printf("01\n1\n2018");
+			arq.close();
+                    
+            try {passagem = data.carregardata();
+            } catch (IOException ex) {}
+    
         capital = 0;
         level = 0;
- 
-        label8.setText("Capital R$ "+capital);
-        label6.setText("Level da empresa "+level);
+        divida =0;
         
+                    label10.setText(passagem);
+                    label6.setText("Level da empresa "+level);
+                    label8.setText("Capital R$ " +capital);
+                    label2.setText("Divida com o banco R$ : "+divida);
+        
+            try{entidade.salvardivida((int)divida);}catch(IOException ex){}
             try {entidade.salvardinheiro(capital);} catch (IOException ex) {}
             try {entidade.salvarlv(level);} catch (IOException ex) {}
+            condicao = false;
+            bt1.setEnabled(true);
+            bt2.setEnabled(true);
+            bt3.setEnabled(true);
+            bt4.setEnabled(true);
+            bt5.setEnabled(true);
+            bt7.setEnabled(true);
+            avancar.setEnabled(true);
+            fundo.setIcon(new ImageIcon("animacao1.png"));
             
         }
         
+            else
+        JOptionPane.showMessageDialog(null, "Boa escolha chefe, sei que nao desistiria 'dagente' ", "Setor Contabil",-1);
+       
             }
             
-            else
-        JOptionPane.showMessageDialog(null, "Pre-requisitos \n\nLv 10\nDivida R$ 0.0\nCapital R$ 15000.0", "Setor Contabil",-1);
-       
         
-        }
         	if(e.getSource()== bt7) {
                 
             JOptionPane.showMessageDialog(null, "Programador : Atila Magalhaes\n"

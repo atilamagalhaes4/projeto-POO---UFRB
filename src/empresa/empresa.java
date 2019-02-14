@@ -70,7 +70,7 @@ public class empresa {
                         lv = Integer.parseInt(nome);
 		    	linha = lerArq.readLine();
                     }
-                    if(lv == 0)lv = 1;
+
                     arq.close();
 		    return lv;
 		}
