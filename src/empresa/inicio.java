@@ -120,8 +120,18 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
 		JLabel label4 = new JLabel("Pagar divida");
 		JLabel label5 = new JLabel("Subir level da empresa");	
 		
+                    if(level ==0)       label6 = new JLabel("Level da empresa : "+level+" (nao formada)");	
+                    if(level ==1)	label6 = new JLabel("Level da empresa : "+level+" (novato)");
+                    if(level ==2)	label6 = new JLabel("Level da empresa : "+level+" (iniciante)");
+                    if(level ==3)	label6 = new JLabel("Level da empresa : "+level+" (amador)");
+                    if(level ==4)	label6 = new JLabel("Level da empresa : "+level+" (intermediario)");
+                    if(level ==5)	label6 = new JLabel("Level da empresa : "+level+" (empreendedor)");
+                    if(level ==6)	label6 = new JLabel("Level da empresa : "+level+" (empresario)");
+                    if(level ==7)	label6 = new JLabel("Level da empresa : "+level+" (avancado)");
+                    if(level ==8)	label6 = new JLabel("Level da empresa : "+level+" (profissional)");
+                    if(level ==9)	label6 = new JLabel("Level da empresa : "+level+" (mestre)");	
+                    if(level ==10)	label6 = new JLabel("Level da empresa : "+level+" (lenda)");     
                 
-                label6 = new JLabel("Level da empresa "+level);
 		label2 = new JLabel("Divida com o banco R$ : "+divida);
                 label9 = new JLabel(empresa);
                 label8 = new JLabel("Capital R$ "+capital);
@@ -168,11 +178,11 @@ JLabel fundo = new JLabel(new ImageIcon("animacao1.png"));
             Font grande = new Font("TimesRoman",Font.PLAIN, 37);
             Font media = new Font("TimesRoman",Font.PLAIN, 20);	
                 
-		label6.setBounds(900, 20, 260, 30); // level da empresa
+		label6.setBounds(894, 20, 260, 30); // level da empresa
                 label6.setFont(pequena);
-		label8.setBounds(900, 40, 260, 40); // capital
+		label8.setBounds(894, 40, 260, 40); // capital
                 label8.setFont(pequena);
-		label2.setBounds(900, 60, 260, 50); // divida
+		label2.setBounds(894, 60, 260, 50); // divida
 		label2.setFont(pequena);
 		label10.setBounds(20, 80, 200, 50);
                 label10.setFont(media);
@@ -368,10 +378,22 @@ if(capital<0){
                         level = level+1;
                         entidade.salvarlv(level);
                             } catch (IOException ex) {}
-                        label6.setText("Level da empresa "+level);
+                    if(level ==0)       label6.setText("Level da empresa : "+level+" (nao formada)");	
+                    if(level ==1)	label6.setText("Level da empresa : "+level+" (novato)");
+                    if(level ==2)	label6.setText("Level da empresa : "+level+" (iniciante)");
+                    if(level ==3)	label6.setText("Level da empresa : "+level+" (amador)");
+                    if(level ==4)	label6.setText("Level da empresa : "+level+" (intermediario)");
+                    if(level ==5)	label6.setText("Level da empresa : "+level+" (empreendedor)");
+                    if(level ==6)	label6.setText("Level da empresa : "+level+" (empresario)");
+                    if(level ==7)	label6.setText("Level da empresa : "+level+" (avancado)");
+                    if(level ==8)	label6.setText("Level da empresa : "+level+" (profissional)");
+                    if(level ==9)	label6.setText("Level da empresa : "+level+" (mestre)");	
+                    if(level ==10)	label6.setText("Level da empresa : "+level+" (lenda)");     
+                
+                            
                         label8.setText("Capital R$ " +capital);
  }
-     else JOptionPane.showConfirmDialog(null, "Nao temos o dinheiro necessario","Setor COntabil",-1);
+     else JOptionPane.showMessageDialog(null, "Nao temos o dinheiro necessario","Setor Contabil",-1);
                             }
                         }
                     else        
@@ -514,15 +536,14 @@ if(capital<0){
 		    gravarArq.printf("01\n1\n2018");
 			arq.close();
                     
-            try {passagem = data.carregardata();
-            } catch (IOException ex) {}
+            try {passagem = data.carregardata();} catch (IOException ex) {}
     
         capital = 0;
         level = 0;
         divida =0;
         
                     label10.setText(passagem);
-                    label6.setText("Level da empresa "+level);
+                    label6.setText("Level da empresa : "+level+" (novato)");
                     label8.setText("Capital R$ " +capital);
                     label2.setText("Divida com o banco R$ : "+divida);
         
