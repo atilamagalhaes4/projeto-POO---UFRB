@@ -13,7 +13,7 @@ import javax.swing.WindowConstants;
 
 public class loop {
     
-     void carregandos(){
+    public void carregando(){
         Frame f = new Frame(); 
          f.setIconImage(new ImageIcon("icone.png").getImage());
     
@@ -42,7 +42,7 @@ public class loop {
  
     }  
 
-          void atualizando(){
+        void atualizando(){
         Frame f = new Frame(); 
          f.setIconImage(new ImageIcon("icone.png").getImage());
     

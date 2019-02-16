@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class terceirizadas {
 
-    static Object [] [] lista;
+    public static Object [] [] lista;
     
-        void listarempresas() {
+        public void listarempresas() {
         
             Random aleatorio = new Random();
             

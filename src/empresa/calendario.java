@@ -1,18 +1,20 @@
 package empresa;
 
+import static empresa.principal.capital;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
 
-public class calendario extends inicio {
+public class calendario extends principal {
  
     empresa entidade = new empresa();
     float montante ;
-    int lv = inicio.level;
+    int lv = super.level;
     float divida;
  
     static int    dia;
@@ -21,9 +23,6 @@ public class calendario extends inicio {
     
 public void funcionarios(){ // ágar salario dos funcionarios
 
-            if(this.capital<0){
-    this.condicao = true;
-    }
 
 
     if(lv ==1){
@@ -87,7 +86,17 @@ montante = 1102+162+182+152+501;
     super.capital = super.capital - montante;
     }
 
-
+if(super.capital<0){
+ fundo.setIcon(new ImageIcon("animacao2.png"));
+    super.avancar.setEnabled(false);
+    super.bt1.setEnabled(false);
+    super.bt2.setEnabled(false);
+    super.bt3.setEnabled(false);
+    super.bt4.setEnabled(false);
+    super.bt5.setEnabled(false);
+    super.bt7.setEnabled(false);
+    System.out.println("entrou");
+}
 
 }
     
@@ -102,12 +111,12 @@ montante = 1102+162+182+152+501;
     dia= 1;
     mes++;
     // Divida do mes se houver
-    this.divida = inicio.divida;
+    this.divida = super.divida;
     if(divida >0){
-    montante = divida*(float)0.05;
+    montante = divida*(float)0.1;
     montante = montante +  divida;
-    inicio.divida = montante;
-    entidade.salvardivida((int)montante);
+    super.divida = montante;
+    entidade.salvardivida((int)divida);
     }
     ////
     if(mes>12){
@@ -119,7 +128,7 @@ montante = 1102+162+182+152+501;
     return conversao();
     }
 
-                    void salvardata() throws IOException{
+                public void salvardata() throws IOException{
                     PrintWriter arq = new PrintWriter("calendario.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(dia+"\n"+mes+"\n"+ano);
@@ -127,7 +136,7 @@ montante = 1102+162+182+152+501;
                             
 		}
                     
-		String carregardata() throws IOException {//
+		public String carregardata() throws IOException {//
 		    FileReader arq = new FileReader("calendario.txt");
 		    BufferedReader lerArq = new BufferedReader(arq);
 		    String linha = lerArq.readLine();

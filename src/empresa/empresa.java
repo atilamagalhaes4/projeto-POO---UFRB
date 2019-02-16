@@ -25,14 +25,14 @@ public class empresa {
 		return (String)nome;
 }
 	
-	void salvarnome(String nome) throws IOException {
+	public void salvarnome(String nome) throws IOException {
 	    FileWriter arq = new FileWriter("nome da empresa.txt");
 	    PrintWriter gravarArq = new PrintWriter(arq);
 	     gravarArq.printf(nome);
 		arq.close();
 	}
 
-		void salvardinheiro(float dinheiro) throws IOException{
+		public void salvardinheiro(float dinheiro) throws IOException{
 		    PrintWriter arq = new PrintWriter("verba.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(""+dinheiro);
@@ -53,7 +53,7 @@ public class empresa {
 		    return (float)capital;
 		}
                 
-		void salvarlv(int level) throws IOException{
+		public void salvarlv(int level) throws IOException{
 		    PrintWriter arq = new PrintWriter("lv.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(""+level);
@@ -75,7 +75,7 @@ public class empresa {
 		    return lv;
 		}
                 
-                void salvardivida(int divida) throws IOException{
+                public void salvardivida(int divida) throws IOException{
 		    PrintWriter arq = new PrintWriter("divida.txt");
 		    PrintWriter gravarArq = new PrintWriter(arq);
 		    gravarArq.printf(""+divida);
